@@ -21,20 +21,17 @@ public class MailSender {
         MailjetResponse response;
         ClientOptions options = ClientOptions.builder().apiKey("").apiSecretKey("").build();
         client = new MailjetClient(options);
-        request = new MailjetRequest(Emailv31.resource)
-                .property(Emailv31.MESSAGES, new JSONArray()
-                        .put(new JSONObject()
-                                .put(Emailv31.Message.FROM, new JSONObject()
-                                        .put("Email", mailInfo.getClient().getMail())
-                                        .put("Name", mailInfo.getClient().getMail())
-                                .put(Emailv31.Message.TO, new JSONArray()
-                                        .put(new JSONObject()
-                                                .put("Email", mailInfo.getClient().getMail())
-                                                .put("Name", mailInfo.getClient().getName())))
-                                .put(Emailv31.Message.SUBJECT, mailInfo.makeSubject())
-                                .put(Emailv31.Message.TEXTPART, mailInfo.makeText())
-                                .put(Emailv31.Message.HTMLPART, mailInfo.makeHTML())
-                                .put(Emailv31.Message.CUSTOMID, mailInfo.getClient().getId()))));
+        request = new MailjetRequest(Emailv31.resource).property(Emailv31.MESSAGES, new JSONArray().put(new JSONObject().put(Emailv31.Message.FROM, new JSONObject()
+            .put("Email", mailInfo.getClient().getMail())
+            .put("Name", mailInfo.getClient().getMail())
+        .put(Emailv31.Message.TO, new JSONArray()
+            .put(new JSONObject()
+                .put("Email", mailInfo.getClient().getMail())
+                .put("Name", mailInfo.getClient().getName())))
+            .put(Emailv31.Message.SUBJECT, mailInfo.makeSubject())
+            .put(Emailv31.Message.TEXTPART, mailInfo.makeText())
+            .put(Emailv31.Message.HTMLPART, mailInfo.makeHTML())
+            .put(Emailv31.Message.CUSTOMID, mailInfo.getClient().getId()))));
         response = client.post(request);
         System.out.println(response.getStatus());
     }
